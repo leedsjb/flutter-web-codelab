@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(LoginApp());
+void main() => runApp(SignUpApp());
 
-class LoginApp extends StatelessWidget {
+class SignUpApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => SignUpScreen(),
       },
     );
   }
 }
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         child: SizedBox(
           width: 400,
           child: Card(
-            child: LoginForm(),
+            child: SignUpForm(),
           ),
         ),
       ),
@@ -30,12 +30,12 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
+class SignUpForm extends StatefulWidget {
   @override
-  _LoginFormState createState() => _LoginFormState();
+  _SignUpFormState createState() => _SignUpFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _firstNameTextController = TextEditingController();
   final _lastNameTextController = TextEditingController();
   final _usernameTextController = TextEditingController();
@@ -49,10 +49,10 @@ class _LoginFormState extends State<LoginForm> {
         mainAxisSize: MainAxisSize.min,
         children: [
           LinearProgressIndicator(value: _formProgress),
-          Text('Sign Up', style: Theme
+          Text('Sign up', style: Theme
               .of(context)
               .textTheme
-              .display1), // display1 changes to headline4 in 1.16
+              .headline4),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: TextFormField(
@@ -74,9 +74,15 @@ class _LoginFormState extends State<LoginForm> {
               decoration: InputDecoration(hintText: 'Username'),
             ),
           ),
-          FlatButton(
-            color: Colors.blue,
-            textColor: Colors.white,
+          TextButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
+                return states.contains(MaterialState.disabled) ? null : Colors.white;
+              }),
+              backgroundColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
+                return states.contains(MaterialState.disabled) ? null : Colors.blue;
+              }),
+            ),
             onPressed: null,
             child: Text('Sign up'),
           ),
